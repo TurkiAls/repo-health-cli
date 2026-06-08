@@ -109,6 +109,8 @@ Maintainer readiness: **64/100**
 - `SECURITY.md`
 ```
 
+More examples are available in [docs/output-examples.md](docs/output-examples.md).
+
 ## Roadmap
 
 - npm package publishing workflow
