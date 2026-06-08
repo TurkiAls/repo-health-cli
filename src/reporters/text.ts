@@ -7,6 +7,10 @@ export function renderText(report: ScanReport): string {
     `Passed: ${report.passed} | Failed: ${report.failed} | Warnings: ${report.warnings}`
   ];
 
+  if (report.configPath) {
+    lines.push(`Config: ${report.configPath}`);
+  }
+
   if (report.missingFiles.length > 0) {
     lines.push("", "Missing files:");
     lines.push(...report.missingFiles.map((file) => `- ${file}`));
@@ -14,7 +18,7 @@ export function renderText(report: ScanReport): string {
 
   if (report.securityWarnings.length > 0) {
     lines.push("", "Security warnings:");
-    lines.push(...report.securityWarnings.map((warning) => `- ${warning.file ?? "repository"}: ${warning.title}`));
+    lines.push(...report.securityWarnings.map((warning) => `- ${warning.file ?? "repository"}:${warning.line ?? 1}: ${warning.title}`));
   }
 
   if (report.recommendations.length > 0) {

@@ -1,0 +1,7 @@
+{
+  "ignorePaths": ["examples/incomplete-repo"],
+  "security": {
+    "allowlistFiles": [],
+    "additionalPatterns": []
+  }
+}

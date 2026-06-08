@@ -3,19 +3,21 @@ import type { CheckResult, ScanOptions, ScanReport } from "./types.js";
 import { checkPackageScripts } from "./checks/packageScripts.js";
 import { checkRequiredFiles } from "./checks/requiredFiles.js";
 import { checkSecurity } from "./checks/security.js";
+import { loadConfig } from "./config.js";
 
 export async function scanRepository(options: ScanOptions): Promise<ScanReport> {
   const root = path.resolve(options.root);
+  const { config, configPath } = await loadConfig(root, options.configPath);
   const results = [
-    ...(await checkRequiredFiles(root)),
+    ...(await checkRequiredFiles(root, config.requiredFiles, config.requiredPaths)),
     ...(await checkPackageScripts(root)),
-    ...(await checkSecurity(root))
+    ...(await checkSecurity(root, config))
   ];
 
-  return buildReport(root, results);
+  return buildReport(root, results, configPath);
 }
 
-export function buildReport(root: string, results: CheckResult[]): ScanReport {
+export function buildReport(root: string, results: CheckResult[], configPath?: string): ScanReport {
   const failed = results.filter((result) => result.status === "fail").length;
   const warnings = results.filter((result) => result.status === "warn").length;
   const passed = results.filter((result) => result.status === "pass").length;
@@ -38,6 +40,7 @@ export function buildReport(root: string, results: CheckResult[]): ScanReport {
 
   return {
     root,
+    configPath,
     score,
     maintainerReadinessScore,
     passed,

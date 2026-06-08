@@ -1,7 +1,7 @@
 import type { CheckResult } from "../types.js";
 import { exists } from "../utils/files.js";
 
-const requiredFiles = [
+const defaultRequiredFiles = [
   "README.md",
   "LICENSE",
   "SECURITY.md",
@@ -12,13 +12,13 @@ const requiredFiles = [
   "package.json"
 ];
 
-const requiredPaths = [
+const defaultRequiredPaths = [
   ".github/workflows",
   ".github/ISSUE_TEMPLATE",
   ".github/pull_request_template.md"
 ];
 
-export async function checkRequiredFiles(root: string): Promise<CheckResult[]> {
+export async function checkRequiredFiles(root: string, requiredFiles = defaultRequiredFiles, requiredPaths = defaultRequiredPaths): Promise<CheckResult[]> {
   const results: CheckResult[] = [];
 
   for (const file of requiredFiles) {

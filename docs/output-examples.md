@@ -39,3 +39,11 @@ Maintainer readiness: **100/100**
 ## Notes
 
 Scores are guidance for maintainers. They do not certify that a repository is secure, complete, or production-ready.
+
+## SARIF
+
+```bash
+repo-health scan . --sarif
+```
+
+SARIF output is intended for security dashboards and code scanning tools. It includes non-passing checks with rule IDs, file paths, and line numbers when available.

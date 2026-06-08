@@ -1,5 +1,8 @@
 # repo-health-cli
 
+[![CI](https://github.com/TurkiAls/repo-health-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/TurkiAls/repo-health-cli/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 A TypeScript CLI for auditing open-source repository readiness.
 
 `repo-health-cli` helps maintainers find the missing pieces that make a public repository easier to trust, contribute to, and maintain.
@@ -38,6 +41,8 @@ That makes the repo harder to evaluate and riskier to use.
 - Basic committed env file detection
 - Suspicious keyword scan for common provider and secret patterns
 - Text, JSON, and Markdown output
+- SARIF output for security-oriented tooling
+- `repo-health.config.json` support
 - TypeScript implementation
 - Vitest test suite
 - GitHub Actions CI
@@ -60,6 +65,8 @@ npm run build
 node dist/cli.js scan .
 node dist/cli.js scan . --json
 node dist/cli.js scan . --markdown
+node dist/cli.js scan . --sarif
+node dist/cli.js scan . --config repo-health.config.json
 ```
 
 During local development:
@@ -111,15 +118,40 @@ Maintainer readiness: **64/100**
 
 More examples are available in [docs/output-examples.md](docs/output-examples.md).
 
+## Configuration
+
+Create `repo-health.config.json` in the repository root:
+
+```json
+{
+  "ignorePaths": ["fixtures", "examples/incomplete-repo"],
+  "requiredFiles": ["README.md", "LICENSE", "SECURITY.md", "package.json"],
+  "requiredPaths": [".github/workflows"],
+  "security": {
+    "allowlistFiles": [],
+    "additionalPatterns": [
+      {
+        "id": "internal-ticket",
+        "label": "Internal ticket reference",
+        "pattern": "INTERNAL-[0-9]+",
+        "severity": "warning"
+      }
+    ]
+  }
+}
+```
+
+Run with:
+
+```bash
+node dist/cli.js scan . --config repo-health.config.json
+```
+
 ## Roadmap
 
-- npm package publishing workflow
-- config file support
+- npm package publication after maintainer npm token setup
 - GitHub API integration
-- SARIF/security report output
 - repository score badge generator
-- richer documentation examples
-- more secret scanning patterns
 - monorepo support
 
 ## Contributing

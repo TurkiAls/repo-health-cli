@@ -5,6 +5,7 @@ export function renderMarkdown(report: ScanReport): string {
     "# Repository Health Report",
     "",
     `Repository: \`${report.root}\``,
+    report.configPath ? `Config: \`${report.configPath}\`` : undefined,
     `Score: **${report.score}/100**`,
     `Maintainer readiness: **${report.maintainerReadinessScore}/100**`,
     "",
@@ -16,7 +17,7 @@ export function renderMarkdown(report: ScanReport): string {
     "",
     "## Missing Files",
     ""
-  ];
+  ].filter((line) => line !== undefined) as string[];
 
   if (report.missingFiles.length === 0) {
     lines.push("- None");

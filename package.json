@@ -1,6 +1,6 @@
 {
   "name": "repo-health-cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A TypeScript CLI for auditing open-source repository readiness.",
   "type": "module",
   "bin": {
@@ -8,6 +8,7 @@
   },
   "files": [
     "dist",
+    "docs",
     "README.md",
     "LICENSE",
     "SECURITY.md",
