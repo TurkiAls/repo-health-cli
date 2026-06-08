@@ -1,0 +1,46 @@
+{
+  "name": "repo-health-cli",
+  "version": "0.1.0",
+  "description": "A TypeScript CLI for auditing open-source repository readiness.",
+  "type": "module",
+  "bin": {
+    "repo-health": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "lint": "eslint src tests --ext .ts",
+    "demo": "tsx src/cli.ts scan examples/incomplete-repo --markdown"
+  },
+  "keywords": [
+    "cli",
+    "open-source",
+    "repository-health",
+    "maintainers",
+    "security"
+  ],
+  "author": "Turki Als",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "@types/node": "^22.10.7",
+    "eslint": "^9.18.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0",
+    "vitest": "^4.1.8"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
