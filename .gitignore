@@ -7,3 +7,4 @@ coverage/
 .env.production
 .env.development
 *.log
+*.tgz

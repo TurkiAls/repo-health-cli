@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0 - 2026-11-13
+
+- Added `repo-health multi` to scan a directory or list of repositories in parallel, with a per-repository timeout, and write a ranked health table as Markdown and JSON.
+- Read the CLI version from `package.json` so `repo-health --version` matches the published package.
+- Declared the `repo-health` entry point at `bin/repo-health.js`, package exports, and a `prepare` build so `npm ci` produces a working install from the lockfile.
+
 ## 0.2.0 - 2026-06-08
 
 - Added `repo-health.config.json` support.

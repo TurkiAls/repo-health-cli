@@ -1,17 +1,19 @@
 #!/usr/bin/env node
 import { Command } from "commander";
+import { registerMultiCommand } from "./multi/command.js";
 import { scanRepository } from "./scanner.js";
 import { renderJson } from "./reporters/json.js";
 import { renderMarkdown } from "./reporters/markdown.js";
 import { renderSarif } from "./reporters/sarif.js";
 import { renderText } from "./reporters/text.js";
+import { version } from "./version.js";
 
 const program = new Command();
 
 program
   .name("repo-health")
   .description("Audit a repository for open-source readiness and maintainer quality.")
-  .version("0.2.0");
+  .version(version);
 
 program
   .command("scan")
@@ -41,5 +43,7 @@ program
 
     process.stdout.write(renderText(report));
   });
+
+registerMultiCommand(program);
 
 await program.parseAsync(process.argv);
