@@ -41,6 +41,7 @@ That makes the repo harder to evaluate and riskier to use.
 - Basic committed env file detection
 - Suspicious keyword scan for common provider and secret patterns
 - Text, JSON, and Markdown output
+- Multi-repository scan that ranks a directory or list of repos in parallel
 - SARIF output for security-oriented tooling
 - `repo-health.config.json` support
 - TypeScript implementation
@@ -49,14 +50,21 @@ That makes the repo harder to evaluate and riskier to use.
 
 ## Installation
 
-This package is not published to npm yet. Use it locally:
+This package is not published to npm yet. Install it reproducibly from the lockfile with Node.js 20+ and npm 10+:
 
 ```bash
 git clone https://github.com/TurkiAls/repo-health-cli.git
 cd repo-health-cli
-npm install
-npm run build
+npm ci
 ```
+
+`npm ci` installs the locked dependency tree and runs `prepare`, which builds `dist/cli.js`. The `repo-health` command is `bin/repo-health.js`:
+
+```bash
+npx repo-health --version
+```
+
+See [docs/install.md](docs/install.md) for the entry point and version details.
 
 ## Usage
 
@@ -74,6 +82,15 @@ During local development:
 ```bash
 npm run demo
 ```
+
+Scan many repositories and write a ranked health table. `health.md` and `health.json` are both written to `--out`:
+
+```bash
+repo-health multi --dir ./repos --jobs 4 --timeout 30000 --out ./health-report
+repo-health multi --list repos.txt --json
+```
+
+Details are in [docs/multi-repo.md](docs/multi-repo.md).
 
 ## Example Output
 

@@ -13,7 +13,7 @@ Thanks for considering a contribution.
 ## Local Setup
 
 ```bash
-npm install
+npm ci
 npm run lint
 npm test
 npm run build
